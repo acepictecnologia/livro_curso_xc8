@@ -1,0 +1,621 @@
+
+
+Microchip MPLAB XC8 Assembler V2.05 build -831301201 
+                                                                                               Tue Apr 02 10:18:24 2019
+
+Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og1 
+     1                           	processor	18F4520
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	flic
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     9                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    12                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    13                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    14  0000                     
+    15                           ; Version 2.05
+    16                           ; Generated 20/12/2018 GMT
+    17                           ; 
+    18                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    19                           ; All rights reserved.
+    20                           ; 
+    21                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    22                           ; 
+    23                           ; Redistribution and use in source and binary forms, with or without modification, are
+    24                           ; permitted provided that the following conditions are met:
+    25                           ; 
+    26                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    27                           ;        conditions and the following disclaimer.
+    28                           ; 
+    29                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    30                           ;        of conditions and the following disclaimer in the documentation and/or other
+    31                           ;        materials provided with the distribution.
+    32                           ; 
+    33                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    34                           ;        software without specific prior written permission.
+    35                           ; 
+    36                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    37                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    38                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    39                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    40                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    41                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    42                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    43                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    44                           ; 
+    45                           ; 
+    46                           ; Code-generator required, PIC18F4520 Definitions
+    47                           ; 
+    48                           ; SFR Addresses
+    49  0000                     _TRISB	set	3987
+    50  0000                     _LATB	set	3978
+    51                           
+    52                           ; #config settings
+    53  0000                     
+    54                           	psect	cinit
+    55  007F06                     __pcinit:
+    56                           	opt callstack 0
+    57  007F06                     start_initialization:
+    58                           	opt callstack 0
+    59  007F06                     __initialization:
+    60                           	opt callstack 0
+    61                           
+    62                           ; Clear objects allocated to COMRAM (2 bytes)
+    63  007F06  6A02               	clrf	(__pbssCOMRAM+1)& (0+255),c
+    64  007F08  6A01               	clrf	__pbssCOMRAM& (0+255),c
+    65  007F0A                     end_of_initialization:
+    66                           	opt callstack 0
+    67  007F0A                     __end_of__initialization:
+    68                           	opt callstack 0
+    69  007F0A  0100               	movlb	0
+    70  007F0C  EF88  F03F         	goto	_main	;jump to C main() function
+    71                           
+    72                           	psect	bssCOMRAM
+    73  000001                     __pbssCOMRAM:
+    74                           	opt callstack 0
+    75  000001                     _i:
+    76                           	opt callstack 0
+    77  000001                     	ds	2
+    78                           
+    79                           	psect	cstackCOMRAM
+    80  000003                     __pcstackCOMRAM:
+    81                           	opt callstack 0
+    82  000003                     ??_piscaLeds:
+    83  000003                     ??_ledsEsq:
+    84  000003                     ??_ledsDir:
+    85  000003                     
+    86                           ; 1 bytes @ 0x0
+    87  000003                     	ds	2
+    88  000005                     
+    89                           ; 1 bytes @ 0x2
+    90 ;;
+    91 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+    92 ;;
+    93 ;; *************** function _main *****************
+    94 ;; Defined at:
+    95 ;;		line 55 in file "EX05.c"
+    96 ;; Parameters:    Size  Location     Type
+    97 ;;		None
+    98 ;; Auto vars:     Size  Location     Type
+    99 ;;		None
+   100 ;; Return value:  Size  Location     Type
+   101 ;;                  1    wreg      void 
+   102 ;; Registers used:
+   103 ;;		wreg, status,2, status,0, cstack
+   104 ;; Tracked objects:
+   105 ;;		On entry : 0/0
+   106 ;;		On exit  : 0/0
+   107 ;;		Unchanged: 0/0
+   108 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   109 ;;      Params:         0       0       0       0       0       0       0
+   110 ;;      Locals:         0       0       0       0       0       0       0
+   111 ;;      Temps:          0       0       0       0       0       0       0
+   112 ;;      Totals:         0       0       0       0       0       0       0
+   113 ;;Total ram usage:        0 bytes
+   114 ;; Hardware stack levels required when called:    1
+   115 ;; This function calls:
+   116 ;;		_ledsDir
+   117 ;;		_ledsEsq
+   118 ;;		_piscaLeds
+   119 ;; This function is called by:
+   120 ;;		Startup code after reset
+   121 ;; This function uses a non-reentrant model
+   122 ;;
+   123                           
+   124                           	psect	text0
+   125  007F10                     __ptext0:
+   126                           	opt callstack 0
+   127  007F10                     _main:
+   128                           	opt callstack 30
+   129                           
+   130                           ;EX05.c: 57:     TRISB = 0b00000000;
+   131                           
+   132                           ;incstack = 0
+   133  007F10  0E00               	movlw	0
+   134  007F12  6E93               	movwf	3987,c	;volatile
+   135                           
+   136                           ;EX05.c: 58:     LATB = 0b00000000;
+   137  007F14  0E00               	movlw	0
+   138  007F16  6E8A               	movwf	3978,c	;volatile
+   139  007F18                     l755:
+   140                           
+   141                           ;EX05.c: 62:         piscaLeds();
+   142  007F18  ECD3  F03F         	call	_piscaLeds	;wreg free
+   143                           
+   144                           ;EX05.c: 64:         ledsEsq();
+   145  007F1C  ECB2  F03F         	call	_ledsEsq	;wreg free
+   146                           
+   147                           ;EX05.c: 66:         ledsDir();
+   148  007F20  EC93  F03F         	call	_ledsDir	;wreg free
+   149  007F24  D7F9               	goto	l755
+   150  007F26                     __end_of_main:
+   151                           	opt callstack 0
+   152                           
+   153 ;; *************** function _piscaLeds *****************
+   154 ;; Defined at:
+   155 ;;		line 12 in file "EX05.c"
+   156 ;; Parameters:    Size  Location     Type
+   157 ;;		None
+   158 ;; Auto vars:     Size  Location     Type
+   159 ;;		None
+   160 ;; Return value:  Size  Location     Type
+   161 ;;                  1    wreg      void 
+   162 ;; Registers used:
+   163 ;;		wreg, status,2, status,0
+   164 ;; Tracked objects:
+   165 ;;		On entry : 0/0
+   166 ;;		On exit  : 0/0
+   167 ;;		Unchanged: 0/0
+   168 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   169 ;;      Params:         0       0       0       0       0       0       0
+   170 ;;      Locals:         0       0       0       0       0       0       0
+   171 ;;      Temps:          2       0       0       0       0       0       0
+   172 ;;      Totals:         2       0       0       0       0       0       0
+   173 ;;Total ram usage:        2 bytes
+   174 ;; Hardware stack levels used:    1
+   175 ;; This function calls:
+   176 ;;		Nothing
+   177 ;; This function is called by:
+   178 ;;		_main
+   179 ;; This function uses a non-reentrant model
+   180 ;;
+   181                           
+   182                           	psect	text1
+   183  007FA6                     __ptext1:
+   184                           	opt callstack 0
+   185  007FA6                     _piscaLeds:
+   186                           	opt callstack 30
+   187                           
+   188                           ;EX05.c: 15:     for (i=0; i<=4; i++)
+   189                           
+   190                           ;incstack = 0
+   191  007FA6  0E00               	movlw	0
+   192  007FA8  6E02               	movwf	_i+1,c
+   193  007FAA  0E00               	movlw	0
+   194  007FAC  6E01               	movwf	_i,c
+   195  007FAE                     l709:
+   196  007FAE  BE02               	btfsc	_i+1,7,c
+   197  007FB0  D006               	goto	l713
+   198  007FB2  5002               	movf	_i+1,w,c
+   199  007FB4  E122               	bnz	l725
+   200  007FB6  0E05               	movlw	5
+   201  007FB8  5C01               	subwf	_i,w,c
+   202  007FBA  B0D8               	btfsc	status,0,c
+   203  007FBC  D01E               	goto	l725
+   204  007FBE                     l713:
+   205                           
+   206                           ;EX05.c: 16:         {;EX05.c: 17:             LATB = 0b00000000;
+   207  007FBE  0E00               	movlw	0
+   208  007FC0  6E8A               	movwf	3978,c	;volatile
+   209                           
+   210                           ;EX05.c: 18:             _delay((unsigned long)((100)*(8000000/4000.0)));
+   211  007FC2  0E02               	movlw	2
+   212  007FC4  6E04               	movwf	(??_piscaLeds+1)& (0+255),c
+   213  007FC6  0E04               	movlw	4
+   214  007FC8  6E03               	movwf	??_piscaLeds& (0+255),c
+   215  007FCA  0EBA               	movlw	186
+   216  007FCC                     u47:
+   217  007FCC  2EE8               	decfsz	wreg,f,c
+   218  007FCE  D7FE               	bra	u47
+   219  007FD0  2E03               	decfsz	??_piscaLeds& (0+255),f,c
+   220  007FD2  D7FC               	bra	u47
+   221  007FD4  2E04               	decfsz	(??_piscaLeds+1)& (0+255),f,c
+   222  007FD6  D7FA               	bra	u47
+   223  007FD8  D000               	nop2	
+   224                           
+   225                           ;EX05.c: 19:             LATB = 0b11111111;
+   226  007FDA  688A               	setf	3978,c	;volatile
+   227                           
+   228                           ;EX05.c: 20:             _delay((unsigned long)((100)*(8000000/4000.0)));
+   229  007FDC  0E02               	movlw	2
+   230  007FDE  6E04               	movwf	(??_piscaLeds+1)& (0+255),c
+   231  007FE0  0E04               	movlw	4
+   232  007FE2  6E03               	movwf	??_piscaLeds& (0+255),c
+   233  007FE4  0EBA               	movlw	186
+   234  007FE6                     u57:
+   235  007FE6  2EE8               	decfsz	wreg,f,c
+   236  007FE8  D7FE               	bra	u57
+   237  007FEA  2E03               	decfsz	??_piscaLeds& (0+255),f,c
+   238  007FEC  D7FC               	bra	u57
+   239  007FEE  2E04               	decfsz	(??_piscaLeds+1)& (0+255),f,c
+   240  007FF0  D7FA               	bra	u57
+   241  007FF2  D000               	nop2	
+   242                           
+   243                           ;EX05.c: 21:         }
+   244  007FF4  4A01               	infsnz	_i,f,c
+   245  007FF6  2A02               	incf	_i+1,f,c
+   246  007FF8  D7DA               	goto	l709
+   247  007FFA                     l725:
+   248                           
+   249                           ;EX05.c: 25:     LATB = 0b00000001;
+   250  007FFA  0E01               	movlw	1
+   251  007FFC  6E8A               	movwf	3978,c	;volatile
+   252  007FFE  0012               	return		;funcret
+   253  008000                     __end_of_piscaLeds:
+   254                           	opt callstack 0
+   255                           
+   256 ;; *************** function _ledsEsq *****************
+   257 ;; Defined at:
+   258 ;;		line 30 in file "EX05.c"
+   259 ;; Parameters:    Size  Location     Type
+   260 ;;		None
+   261 ;; Auto vars:     Size  Location     Type
+   262 ;;		None
+   263 ;; Return value:  Size  Location     Type
+   264 ;;                  1    wreg      void 
+   265 ;; Registers used:
+   266 ;;		wreg, status,2, status,0
+   267 ;; Tracked objects:
+   268 ;;		On entry : 0/0
+   269 ;;		On exit  : 0/0
+   270 ;;		Unchanged: 0/0
+   271 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   272 ;;      Params:         0       0       0       0       0       0       0
+   273 ;;      Locals:         0       0       0       0       0       0       0
+   274 ;;      Temps:          2       0       0       0       0       0       0
+   275 ;;      Totals:         2       0       0       0       0       0       0
+   276 ;;Total ram usage:        2 bytes
+   277 ;; Hardware stack levels used:    1
+   278 ;; This function calls:
+   279 ;;		Nothing
+   280 ;; This function is called by:
+   281 ;;		_main
+   282 ;; This function uses a non-reentrant model
+   283 ;;
+   284                           
+   285                           	psect	text2
+   286  007F64                     __ptext2:
+   287                           	opt callstack 0
+   288  007F64                     _ledsEsq:
+   289                           	opt callstack 30
+   290                           
+   291                           ;EX05.c: 32:     for (i=0; i<=7; i++)
+   292                           
+   293                           ;incstack = 0
+   294  007F64  0E00               	movlw	0
+   295  007F66  6E02               	movwf	_i+1,c
+   296  007F68  0E00               	movlw	0
+   297  007F6A  6E01               	movwf	_i,c
+   298  007F6C                     l729:
+   299  007F6C  BE02               	btfsc	_i+1,7,c
+   300  007F6E  D006               	goto	l733
+   301  007F70  5002               	movf	_i+1,w,c
+   302  007F72  E116               	bnz	l739
+   303  007F74  0E08               	movlw	8
+   304  007F76  5C01               	subwf	_i,w,c
+   305  007F78  B0D8               	btfsc	status,0,c
+   306  007F7A  D012               	goto	l739
+   307  007F7C                     l733:
+   308                           
+   309                           ;EX05.c: 33:         {;EX05.c: 34:             _delay((unsigned long)((100)*(8000000/400
+      +                          0.0)));
+   310  007F7C  0E02               	movlw	2
+   311  007F7E  6E04               	movwf	(??_ledsEsq+1)& (0+255),c
+   312  007F80  0E04               	movlw	4
+   313  007F82  6E03               	movwf	??_ledsEsq& (0+255),c
+   314  007F84  0EBA               	movlw	186
+   315  007F86                     u67:
+   316  007F86  2EE8               	decfsz	wreg,f,c
+   317  007F88  D7FE               	bra	u67
+   318  007F8A  2E03               	decfsz	??_ledsEsq& (0+255),f,c
+   319  007F8C  D7FC               	bra	u67
+   320  007F8E  2E04               	decfsz	(??_ledsEsq+1)& (0+255),f,c
+   321  007F90  D7FA               	bra	u67
+   322  007F92  D000               	nop2	
+   323                           
+   324                           ;EX05.c: 35:             LATB = LATB << 1;
+   325  007F94  508A               	movf	3978,w,c	;volatile
+   326  007F96  248A               	addwf	3978,w,c	;volatile
+   327  007F98  6E8A               	movwf	3978,c	;volatile
+   328                           
+   329                           ;EX05.c: 36:         }
+   330  007F9A  4A01               	infsnz	_i,f,c
+   331  007F9C  2A02               	incf	_i+1,f,c
+   332  007F9E  D7E6               	goto	l729
+   333  007FA0                     l739:
+   334                           
+   335                           ;EX05.c: 40:     LATB = 0B10000000;
+   336  007FA0  0E80               	movlw	128
+   337  007FA2  6E8A               	movwf	3978,c	;volatile
+   338  007FA4  0012               	return		;funcret
+   339  007FA6                     __end_of_ledsEsq:
+   340                           	opt callstack 0
+   341                           
+   342 ;; *************** function _ledsDir *****************
+   343 ;; Defined at:
+   344 ;;		line 46 in file "EX05.c"
+   345 ;; Parameters:    Size  Location     Type
+   346 ;;		None
+   347 ;; Auto vars:     Size  Location     Type
+   348 ;;		None
+   349 ;; Return value:  Size  Location     Type
+   350 ;;                  1    wreg      void 
+   351 ;; Registers used:
+   352 ;;		wreg, status,2, status,0
+   353 ;; Tracked objects:
+   354 ;;		On entry : 0/0
+   355 ;;		On exit  : 0/0
+   356 ;;		Unchanged: 0/0
+   357 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   358 ;;      Params:         0       0       0       0       0       0       0
+   359 ;;      Locals:         0       0       0       0       0       0       0
+   360 ;;      Temps:          2       0       0       0       0       0       0
+   361 ;;      Totals:         2       0       0       0       0       0       0
+   362 ;;Total ram usage:        2 bytes
+   363 ;; Hardware stack levels used:    1
+   364 ;; This function calls:
+   365 ;;		Nothing
+   366 ;; This function is called by:
+   367 ;;		_main
+   368 ;; This function uses a non-reentrant model
+   369 ;;
+   370                           
+   371                           	psect	text3
+   372  007F26                     __ptext3:
+   373                           	opt callstack 0
+   374  007F26                     _ledsDir:
+   375                           	opt callstack 30
+   376                           
+   377                           ;EX05.c: 48:    for (i=0; i<=7; i++)
+   378                           
+   379                           ;incstack = 0
+   380  007F26  0E00               	movlw	0
+   381  007F28  6E02               	movwf	_i+1,c
+   382  007F2A  0E00               	movlw	0
+   383  007F2C  6E01               	movwf	_i,c
+   384  007F2E                     l743:
+   385  007F2E  BE02               	btfsc	_i+1,7,c
+   386  007F30  D006               	goto	l747
+   387  007F32  5002               	movf	_i+1,w,c
+   388  007F34  E116               	bnz	l23
+   389  007F36  0E08               	movlw	8
+   390  007F38  5C01               	subwf	_i,w,c
+   391  007F3A  B0D8               	btfsc	status,0,c
+   392  007F3C  0012               	return	
+   393  007F3E                     l747:
+   394                           
+   395                           ;EX05.c: 49:         {;EX05.c: 50:             _delay((unsigned long)((100)*(8000000/400
+      +                          0.0)));
+   396  007F3E  0E02               	movlw	2
+   397  007F40  6E04               	movwf	(??_ledsDir+1)& (0+255),c
+   398  007F42  0E04               	movlw	4
+   399  007F44  6E03               	movwf	??_ledsDir& (0+255),c
+   400  007F46  0EBA               	movlw	186
+   401  007F48                     u77:
+   402  007F48  2EE8               	decfsz	wreg,f,c
+   403  007F4A  D7FE               	bra	u77
+   404  007F4C  2E03               	decfsz	??_ledsDir& (0+255),f,c
+   405  007F4E  D7FC               	bra	u77
+   406  007F50  2E04               	decfsz	(??_ledsDir+1)& (0+255),f,c
+   407  007F52  D7FA               	bra	u77
+   408  007F54  D000               	nop2	
+   409                           
+   410                           ;EX05.c: 51:             LATB = LATB >> 1;
+   411  007F56  90D8               	bcf	status,0,c
+   412  007F58  308A               	rrcf	3978,w,c	;volatile
+   413  007F5A  6E8A               	movwf	3978,c	;volatile
+   414                           
+   415                           ;EX05.c: 52:         }
+   416  007F5C  4A01               	infsnz	_i,f,c
+   417  007F5E  2A02               	incf	_i+1,f,c
+   418  007F60  D7E6               	goto	l743
+   419  007F62                     l23:
+   420  007F62  0012               	return		;funcret
+   421  007F64                     __end_of_ledsDir:
+   422                           	opt callstack 0
+   423  0000                     
+   424                           	psect	rparam
+   425  0000                     tosu	equ	0xFFF
+   426                           tosh	equ	0xFFE
+   427                           tosl	equ	0xFFD
+   428                           stkptr	equ	0xFFC
+   429                           pclatu	equ	0xFFB
+   430                           pclath	equ	0xFFA
+   431                           pcl	equ	0xFF9
+   432                           tblptru	equ	0xFF8
+   433                           tblptrh	equ	0xFF7
+   434                           tblptrl	equ	0xFF6
+   435                           tablat	equ	0xFF5
+   436                           prodh	equ	0xFF4
+   437                           prodl	equ	0xFF3
+   438                           indf0	equ	0xFEF
+   439                           postinc0	equ	0xFEE
+   440                           postdec0	equ	0xFED
+   441                           preinc0	equ	0xFEC
+   442                           plusw0	equ	0xFEB
+   443                           fsr0h	equ	0xFEA
+   444                           fsr0l	equ	0xFE9
+   445                           wreg	equ	0xFE8
+   446                           indf1	equ	0xFE7
+   447                           postinc1	equ	0xFE6
+   448                           postdec1	equ	0xFE5
+   449                           preinc1	equ	0xFE4
+   450                           plusw1	equ	0xFE3
+   451                           fsr1h	equ	0xFE2
+   452                           fsr1l	equ	0xFE1
+   453                           bsr	equ	0xFE0
+   454                           indf2	equ	0xFDF
+   455                           postinc2	equ	0xFDE
+   456                           postdec2	equ	0xFDD
+   457                           preinc2	equ	0xFDC
+   458                           plusw2	equ	0xFDB
+   459                           fsr2h	equ	0xFDA
+   460                           fsr2l	equ	0xFD9
+   461                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         2
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM          127      2       4
+    BANK0           128      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_ledsDir
+    _main->_ledsEsq
+    _main->_piscaLeds
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0       0
+                            _ledsDir
+                            _ledsEsq
+                          _piscaLeds
+ ---------------------------------------------------------------------------------
+ (1) _piscaLeds                                            2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _ledsEsq                                              2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _ledsDir                                              2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _ledsDir
+   _ledsEsq
+   _piscaLeds
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             5FF      0       0      17        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK5           100      0       0      16        0.0%
+BANK5              100      0       0      14        0.0%
+BITBANK4           100      0       0      12        0.0%
+BANK4              100      0       0      13        0.0%
+BITBANK3           100      0       0      10        0.0%
+BANK3              100      0       0      11        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            80      0       0       4        0.0%
+BANK0               80      0       0       5        0.0%
+BITCOMRAM           7F      0       0       0        0.0%
+COMRAM              7F      2       4       1        3.1%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0       4      15        0.0%
+DATA                 0      0       4       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.05 build -831301201 
+Symbol Table                                                                                   Tue Apr 02 10:18:24 2019
+
+                      _i 0001                       l23 7F62                       u47 7FCC  
+                     u57 7FE6                       u67 7F86                       u77 7F48  
+            __CFG_BORV$3 000000             __CFG_CP0$OFF 000000             __CFG_CP1$OFF 000000  
+           __CFG_CP2$OFF 000000             __CFG_CP3$OFF 000000              __CFG_OSC$HS 000000  
+                    l713 7FBE                      l733 7F7C                      l725 7FFA  
+                    l709 7FAE                      l743 7F2E                      l729 7F6C  
+                    l747 7F3E                      l739 7FA0                      l755 7F18  
+           __CFG_CPB$OFF 000000             __CFG_CPD$OFF 000000                      wreg 000FE8  
+           __CFG_LVP$OFF 000000             __CFG_WDT$OFF 000000                     _LATB 000F8A  
+           __CFG_PWRT$ON 000000                     _main 7F10                     start 0000  
+          __CFG_IESO$OFF 000000            __CFG_MCLRE$ON 000000             ___param_bank 000000  
+                  ?_main 0003                    _TRISB 000F93            __CFG_WRT0$OFF 000000  
+          __CFG_WRT1$OFF 000000            __CFG_WRT2$OFF 000000            __CFG_WRT3$OFF 000000  
+         __CFG_EBTR0$OFF 000000           __CFG_FCMEN$OFF 000000           __CFG_EBTR1$OFF 000000  
+         __CFG_EBTR2$OFF 000000           __CFG_EBTR3$OFF 000000            __CFG_WRTB$OFF 000000  
+          __CFG_WRTC$OFF 000000            __CFG_WRTD$OFF 000000          __end_of_ledsDir 7F64  
+        __end_of_ledsEsq 7FA6           __CFG_EBTRB$OFF 000000           __CFG_BOREN$OFF 000000  
+                  status 000FD8          __initialization 7F06             __end_of_main 7F26  
+                 ??_main 0005            __activetblptr 000000           __CFG_XINST$OFF 000000  
+         __CFG_STVREN$ON 000000                ??_ledsDir 0003                ??_ledsEsq 0003  
+             __accesstop 0080  __end_of__initialization 7F0A          __CFG_PBADEN$OFF 000000  
+          ___rparam_used 000001           __pcstackCOMRAM 0003       __size_of_piscaLeds 005A  
+                __Hparam 0000                  __Lparam 0000                  __pcinit 7F06  
+                __ramtop 0600                  __ptext0 7F10                  __ptext1 7FA6  
+                __ptext2 7F64                  __ptext3 7F26                  _ledsDir 7F26  
+                _ledsEsq 7F64     end_of_initialization 7F0A        __end_of_piscaLeds 8000  
+    start_initialization 7F06         __CFG_LPT1OSC$OFF 000000              __pbssCOMRAM 0001  
+      __CFG_CCP2MX$PORTC 000000                 ?_ledsDir 0003                 ?_ledsEsq 0003  
+              _piscaLeds 7FA6         __CFG_WDTPS$32768 000000               ?_piscaLeds 0003  
+               __Hrparam 0000                 __Lrparam 0000         __size_of_ledsDir 003E  
+       __size_of_ledsEsq 0042            __size_of_main 0016              ??_piscaLeds 0003  
